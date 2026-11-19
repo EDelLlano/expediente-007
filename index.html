@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expediente 007</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #111;
+      color: #e8e0d0;
+      font-family: Georgia, serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+    }
+
+    .expediente {
+      width: 100%;
+      max-width: 930px;
+      text-align: center;
+      border: 1px solid #776b57;
+      padding: 35px 25px;
+      background: #191817;
+      box-shadow: 0 0 35px rgba(0,0,0,.8);
+    }
+
+    .clasificacion {
+      color: #a33b32;
+      letter-spacing: 4px;
+      font-size: 13px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 34px;
+      letter-spacing: 4px;
+      margin: 8px 0;
+    }
+
+    .subtitulo {
+      color: #a99e8a;
+      font-size: 13px;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
+    }
+
+    .imagen-central {
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      margin: 0 auto 35px;
+      filter: grayscale(100%) contrast(1.1);
+      border: 1px solid #625746;
+    }
+
+    .instruccion {
+      font-size: 19px;
+      line-height: 1.7;
+      margin: 30px auto;
+      max-width: 800px;
+    }
+
+    .casillas {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 35px 0 45px;
+    }
+
+    .casillas input {
+      width: 75px;
+      height: 85px;
+      background: #252321;
+      border: 1px solid #8c7b60;
+      color: #f1e8d7;
+      text-align: center;
+      font-size: 36px;
+      font-family: Georgia, serif;
+      outline: none;
+      border-radius: 0;
+    }
+
+    .casillas input:focus {
+      border-color: #c1a879;
+      box-shadow: 0 0 8px #8c7b60;
+    }
+
+    button {
+      background: #7c3029;
+      color: #f4e9d8;
+      border: 1px solid #a34a3e;
+      padding: 18px 35px;
+      font-family: Georgia, serif;
+      letter-spacing: 3px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      background: #963d34;
+    }
+
+    #mensaje {
+      margin-top: 35px;
+      min-height: 25px;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    #revelacion {
+      display: none;
+      margin-top: 55px;
+      padding-top: 35px;
+      border-top: 1px solid #776b57;
+    }
+
+    #revelacion h2 {
+      color: #b99b68;
+      letter-spacing: 5px;
+      font-size: 30px;
+    }
+
+    #revelacion p {
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    .qr-contenedor {
+      margin: 35px auto;
+      padding: 15px;
+      background: #e8e0d0;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    #codigoQR {
+      display: block;
+      width: 250px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .nota {
+      margin-top: 55px;
+      color: #766d60;
+      font-size: 13px;
+      letter-spacing: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .expediente {
+        padding: 25px 15px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .instruccion {
+        font-size: 16px;
+      }
+
+      .casillas {
+        gap: 12px;
+      }
+
+      .casillas input {
+        width: 65px;
+        height: 72px;
+        font-size: 30px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 15px 18px;
+        letter-spacing: 2px;
+      }
+
+      #revelacion h2 {
+        font-size: 23px;
+      }
+
+      #revelacion p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="expediente">
+
+    <div class="clasificacion">
+      Documento confidencial
+    </div>
+
+    <h1>EXPEDIENTE 007</h1>
+
+    <div class="subtitulo">
+      ARCHIVO DE INVESTIGACIÓN CRIMINAL
+    </div>
+
+    <img
+      src="https://drive.google.com/thumbnail?id=1RMQqnKIBeZ1XBwUxl75FaiU__HRN5vTo&sz=w1000"
+      class="imagen-central"
+      alt="Ojo mirando a través de una cerradura"
+    >
+
+    <p class="instruccion">
+      El expediente contiene información clasificada.
+      Para acceder al último indicio, introduce el código
+      obtenido durante la investigación.
+    </p>
+
+    <div class="casillas">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Primer dígito">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Segundo dígito">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Tercer dígito">
+    </div>
+
+    <button type="button" onclick="comprobarCodigo()">
+      DESBLOQUEAR EXPEDIENTE
+    </button>
+
+    <div id="mensaje" aria-live="polite"></div>
+
+    <section id="revelacion">
+
+      <h2>ACCESO CONCEDIDO</h2>
+
+      <p>
+        Has encontrado el último indicio.
+        Escanea el siguiente código para continuar
+        con la investigación.
+      </p>
+
+      <div class="qr-contenedor">
+        <img
+          id="codigoQR"
+          alt="Código QR del último indicio"
+        >
+      </div>
+
+      <p style="font-size:13px; letter-spacing:2px;">
+        ÚLTIMO INDICIO · ARCHIVO CLASIFICADO
+      </p>
+
+    </section>
+
+    <div class="nota">
+      ARCHIVO 007 · ACCESO RESTRINGIDO
+    </div>
+
+  </main>
+
+  <script>
+    const casillas = document.querySelectorAll(
+      ".casillas input"
+    );
+
+    // Control de las tres casillas.
+    casillas.forEach((casilla, indice) => {
+
+      casilla.addEventListener("input", () => {
+
+        casilla.value = casilla.value.replace(/[^0-9]/g, "");
+
+        if (
+          casilla.value &&
+          indice < casillas.length - 1
+        ) {
+          casillas[indice + 1].focus();
+        }
+
+      });
+
+      casilla.addEventListener("keydown", (evento) => {
+
+        if (
+          evento.key === "Backspace" &&
+          !casilla.value &&
+          indice > 0
+        ) {
+          casillas[indice - 1].focus();
+        }
+
+      });
+
+    });
+
+    function comprobarCodigo() {
+
+      const codigo = Array.from(casillas)
+        .map(casilla => casilla.value)
+        .join("");
+
+      const mensaje = document.getElementById("mensaje");
+      const revelacion = document.getElementById("revelacion");
+      const codigoQR = document.getElementById("codigoQR");
+
+      if (codigo === "794") {
+
+        mensaje.textContent =
+          "Código correcto. Identidad del archivo confirmada.";
+
+        mensaje.style.color = "#b99b68";
+
+        revelacion.style.display = "block";
+
+        // Destino del código QR.
+        const destino =
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8287397/";
+
+        // Generar el QR automáticamente.
+        codigoQR.src =
+          "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="
+          + encodeURIComponent(destino);
+
+        revelacion.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      } else {
+
+        mensaje.textContent =
+          "Código incorrecto. Inténtalo nuevamente.";
+
+        mensaje.style.color = "#c45b50";
+
+        revelacion.style.display = "none";
+
+      }
+
+    }
+  </script>
+
+</body>
+</html>
